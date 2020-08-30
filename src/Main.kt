@@ -1,6 +1,7 @@
 class Main {
     companion object {
         var name = ""
+        var round = 0
         var playerInput = 0
         var playerScore = 0
         var computerScore = 0
@@ -14,7 +15,10 @@ class Main {
             println("Masukkan nama pemain")
             name = readLine().toString()
 
-            for (i in 1..3) {
+            println("masukkan jumlah rounde")
+            round = readLine()!!.toInt()
+
+            for (i in 1..round) {
                 println("round $i")
                 var guestRandom = (0..9).random()
                 var randomComp = (0..9).random()
@@ -45,20 +49,20 @@ class Main {
                 }
                 println("jarak angka player $nearestPointPlayer")
             } else if (playerInput > guestRandom) {
-                for (i in guestRandom..playerInput) {
+                for (i in guestRandom..playerInput.minus(1)) {
                     nearestPointPlayer++
                 }
                 println("jarak angka player $nearestPointPlayer")
             }
 
             if (randomComp < guestRandom) {
-                for (i in randomComp..guestRandom) {
+                for (i in randomComp..guestRandom.minus(1)) {
                     nearestPointComputer++
                 }
                 println("jarak angka computer $nearestPointComputer")
 
             } else if (randomComp > guestRandom) {
-                for (i in guestRandom..randomComp) {
+                for (i in guestRandom..randomComp.minus(1)) {
                     nearestPointComputer++
                 }
                 println("jarak angka computer $nearestPointComputer")
@@ -66,15 +70,12 @@ class Main {
         }
 
         private fun scoreCondition(nearestPointPlayer: Int, nearestPointComputer: Int) {
-            if (nearestPointPlayer == nearestPointComputer){
+            if (nearestPointPlayer == nearestPointComputer) {
                 println("Draw")
-            }
-            else if (nearestPointPlayer > nearestPointComputer){
+            } else if (nearestPointPlayer > nearestPointComputer) {
                 computerScore++
                 println("Computer score $computerScore")
-            }
-
-            else if (nearestPointPlayer < nearestPointComputer){
+            } else if (nearestPointPlayer < nearestPointComputer) {
                 playerScore++
                 println("player score $playerScore")
             }
@@ -83,13 +84,15 @@ class Main {
         private fun winningCondition(playerScore: Int, computerScore: Int) {
             println("============")
             println("Winner is ")
-            if (playerScore > computerScore){
+            if (playerScore == computerScore) {
+                println("draw")
+            } else if (playerScore > computerScore) {
                 println(name)
-            }else if (playerScore < computerScore){
+            } else if (playerScore < computerScore) {
                 println("Computer")
             }
         }
-        
+
     }
 }
 
